@@ -1,0 +1,16 @@
+{
+  "name": "okei_check_bot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+	"type": "module",
+  "scripts": {
+		"start": "node index.js"
+	},
+  "keywords": [],
+  "author": "Vladimir Kondaurov",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.61.0"
+  }
+}
