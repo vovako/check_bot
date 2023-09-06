@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-	"type": "module",
+  "type": "module",
   "scripts": {
-		"start": "node index.js"
-	},
+    "start": "node bot.js"
+  },
   "keywords": [],
   "author": "Vladimir Kondaurov",
   "license": "ISC",
   "dependencies": {
-    "node-telegram-bot-api": "^0.61.0"
+    "grammy": "^1.18.1"
   }
 }
