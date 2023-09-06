@@ -3,14 +3,22 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-	"type": "module",
+  "type": "module",
   "scripts": {
-		"start": "node index.js"
-	},
+    "start": "node bot.js",
+		"dev": "gulp"
+  },
   "keywords": [],
   "author": "Vladimir Kondaurov",
   "license": "ISC",
   "dependencies": {
-    "node-telegram-bot-api": "^0.61.0"
-  }
+    "grammy": "^1.18.1"
+  },
+	"devDependencies": {
+		"browser-sync": "^2.28.3",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^8.0.0",
+		"gulp-sass": "^5.1.0",
+		"sass": "^1.59.2"
+	}
 }

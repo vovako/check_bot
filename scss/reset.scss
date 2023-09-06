@@ -1,0 +1,37 @@
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,body{
+	height: 100%;
+}
+
+aside,
+nav,
+footer,
+header,
+section,
+main {
+	display: block;
+}
+ul {
+	list-style-type: none;
+}
+a {
+	text-decoration: none;
+}
+button {
+	cursor: pointer;
+	text-align: center;
+	display: inline-block;
+}
+textarea, input {
+	font: inherit;
+}

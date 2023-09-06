@@ -1,0 +1,27 @@
+@import "reset";
+@import "fonts";
+
+body {
+	font-family: "consolas";
+}
+
+$minWidth: 320;
+$maxWidth: 480;
+
+//Адаптивное свойство
+@mixin adaptiv-value($indentType, $pcSize, $mobSize) {
+	$addSize: $pcSize - $mobSize;
+	#{$indentType}: calc(#{$mobSize + px} + #{$addSize} * ((100vw - #{$minWidth+px}) / #{$maxWidth - $minWidth}));
+}
+
+.container {
+	padding: 0 15px;
+	margin: 0 auto;
+}
+
+body {
+	background-color: black;
+}
+
+//===========================================================
+
