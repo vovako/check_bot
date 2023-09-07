@@ -3,7 +3,9 @@
 @import "fonts";
 
 body {
-	font-family: "consolas";
+	font-family: "Inter";
+	background-color: var(--bg-color);
+	font-size: 16px;
 }
 
 $minWidth: 320;
@@ -20,15 +22,47 @@ $maxWidth: 480;
 	margin: 0 auto;
 }
 
-body {
-	background-color: var(--bg-color);
-
+.breadcrumbs {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
 	font-size: 16px;
+	padding: 20px 0;
+
+	&__item {
+		color: white;
+		a {
+			text-decoration: underline;
+			color: inherit;
+
+			&:visited {
+				color: inherit;
+			}
+		}
+		&:not(:last-child) {
+			&::after {
+				content: ">";
+				margin-right: 0.4em;
+			}
+		}
+
+		span {
+			&::after {
+				display: none;
+			}
+		}
+	}
 }
 
-.container {
-}
+
 
 //===========================================================
 
 @import "intro";
+@import "groups";
+
+//===========================================================
+
+.dn {
+	display: none;
+}

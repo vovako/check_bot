@@ -47,8 +47,22 @@ textarea, input {
   --block-color: #D9D9D9;
 }
 
+@font-face {
+  font-family: "Inter";
+  src: local("Inter Regular"), local("Inter-Regular"), url("../fonts/Inter-Regular.woff2") format("woff2"), url("../fonts/Inter-Regular.woff") format("woff"), url("../fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Inter";
+  src: local("Inter Semi Bold"), local("Inter-Semi-Bold"), url("../fonts/Inter-SemiBold.woff2") format("woff2"), url("../fonts/Inter-SemiBold.woff") format("woff"), url("../fonts/Inter-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
 body {
-  font-family: "consolas";
+  font-family: "Inter";
+  background-color: var(--bg-color);
+  font-size: 16px;
 }
 
 .container {
@@ -56,9 +70,29 @@ body {
   margin: 0 auto;
 }
 
-body {
-  background-color: var(--bg-color);
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   font-size: 16px;
+  padding: 20px 0;
+}
+.breadcrumbs__item {
+  color: white;
+}
+.breadcrumbs__item a {
+  text-decoration: underline;
+  color: inherit;
+}
+.breadcrumbs__item a:visited {
+  color: inherit;
+}
+.breadcrumbs__item:not(:last-child)::after {
+  content: ">";
+  margin-right: 0.4em;
+}
+.breadcrumbs__item span::after {
+  display: none;
 }
 
 .intro {
@@ -91,4 +125,44 @@ body {
 }
 .intro-btn__text {
   font-size: 20px;
+}
+
+.groups__grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.groups-tabs {
+  display: flex;
+  align-items: center;
+}
+.groups-tabs__btn {
+  background-color: transparent;
+  padding: 3px;
+  width: 50px;
+  color: var(--block-color);
+  font-weight: 600;
+  border: 1px solid var(--block-color);
+}
+.groups-tabs__btn.active {
+  color: var(--bg-color);
+  background-color: var(--block-color);
+}
+
+.groups-item {
+  background-color: var(--block-color);
+  padding: 4px;
+}
+.groups-item__title {
+  font-weight: 600;
+  font-size: 20px;
+}
+.groups-item__count {
+  font-size: 14px;
+}
+
+.dn {
+  display: none;
 }
