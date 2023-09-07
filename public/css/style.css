@@ -42,8 +42,7 @@ textarea, input {
 }
 
 :root {
-  --tg-theme-secondary-bg-color: lightblue;
-  --tg-theme-bg-color: #171744;
+  --bg-color: #171744;
   --button-color: #0257D8;
   --block-color: #D9D9D9;
 }
@@ -58,7 +57,7 @@ body {
 }
 
 body {
-  background-color: var(--tg-theme-bg-color);
+  background-color: var(--bg-color);
   font-size: 16px;
 }
 
