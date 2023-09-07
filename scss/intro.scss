@@ -1,0 +1,24 @@
+.intro {
+	padding-top: 40px;
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+}
+
+.intro-btn {
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	color: white;
+	border: 1px solid white;
+	padding: 5px 0;
+	&__img {
+	}
+
+	&__text {
+		font-size: 20px;
+	}
+}

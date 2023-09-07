@@ -22,11 +22,13 @@ $maxWidth: 480;
 
 body {
 	background-color: var(--tg-theme-secondary-bg-color);
+	font-size: 16px;
 }
 
 .container {
 	background-color: var(--tg-theme-bg-color);
 }
+
 .grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -37,3 +39,5 @@ body {
 }
 
 //===========================================================
+
+@import 'intro';
