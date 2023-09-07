@@ -50,5 +50,19 @@ body {
 }
 
 body {
-  background-color: black;
+  background-color: var(--tg-theme-secondary-bg-color);
+}
+
+.container {
+  background-color: var(--tg-theme-bg-color);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.item {
+  background-color: gray;
 }
