@@ -49,6 +49,7 @@ textarea, input {
   --bg-color: #171744;
   --btn-color: #0257D8;
   --block-color: #D9D9D9;
+  --checked-group: #42FF00;
 }
 
 @font-face {
@@ -305,6 +306,9 @@ section.active {
 .groups-item__count {
   pointer-events: none;
   font-size: 14px;
+}
+.groups-item.checked {
+  background-color: var(--checked-group);
 }
 
 .write-group__header {

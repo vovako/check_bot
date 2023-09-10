@@ -8,7 +8,12 @@ document.addEventListener('click', function (evt) {
 		const targetPage = target.getAttribute('data-page-target')
 		toPage(targetPage)
 	} else if (target.classList.contains('groups-item')) {
-		toPage('write-group')
+		const section = target.closest('section')
+		if (section.classList.contains('write')) {
+			toPage('write-group')
+		} else if (section.classList.contains('history')) {
+			toPage('history-group')
+		}
 	} else if (!target.closest('.select-with-image') && document.querySelector('.select-with-image__list.active')) {
 		const allSelect = document.querySelectorAll('.select-with-image__list')
 		Array.from(allSelect).map(e => e.classList.remove('active'))

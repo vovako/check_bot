@@ -49,4 +49,8 @@
 		pointer-events: none;
 		font-size: 14px;
 	}
+
+	&.checked {
+		background-color: var(--checked-group);
+	}
 }
