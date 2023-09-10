@@ -1,0 +1,10 @@
+.history {
+	&__calendar-btn {
+		@extend .btn;
+		background-color: rgba(white, 0.15);
+		color: white;
+		margin-bottom: 20px;
+		font-weight: 400;
+		font-size: 16px;
+	}
+}
