@@ -1,9 +1,20 @@
 .groups {
-	&__grid {
+	&__wrapper {
 		margin-top: 20px;
-		display: grid;
+	}
+
+	&__course {
 		grid-template-columns: repeat(4, 1fr);
 		gap: 6px;
+		display: none;
+
+		&:not(:last-child) {
+			margin-bottom: 30px;
+		}
+
+		&.active {
+			display: grid;
+		}
 	}
 }
 .groups-tabs {
@@ -26,13 +37,16 @@
 .groups-item {
 	background-color: var(--block-color);
 	padding: 4px;
+	border-radius: 6px;
 
 	&__title {
 		font-weight: 600;
 		font-size: 20px;
+		pointer-events: none;
 	}
 
 	&__count {
+		pointer-events: none;
 		font-size: 14px;
 	}
 }

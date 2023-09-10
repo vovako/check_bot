@@ -7,96 +7,580 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="css/style.css">
 	<script src="https://telegram.org/js/telegram-web-app.js"></script>
-	<script defer src="js/app.js"></script>
+	<script defer src="js/script.js"></script>
 </head>
 
 <body>
-	<section class="intro dn">
+	<section class="intro active" data-page="intro">
 		<div class="container">
 			<div class="intro__wrapper">
-				<button class="intro-btn">
+				<button class="intro-btn" data-page-target="write">
 					<div class="intro-btn__img"><img src="img/write-icon.svg" alt=""></div>
 					<div class="intro-btn__text">Запись</div>
 				</button>
-				<button class="intro-btn">
+				<button class="intro-btn" data-page-target="history">
 					<div class="intro-btn__img"><img src="img/history-icon.svg" alt=""></div>
 					<div class="intro-btn__text">История записей</div>
 				</button>
 			</div>
 		</div>
 	</section>
-	<section class="write">
+
+	<section class="write" data-page="write">
 		<div class="container">
 			<div class="breadcrumbs">
-				<div class="breadcrumbs__item">
-					<a href="#">Главная</a>
-				</div>
-				<div class="breadcrumbs__item">
-					<span>Запись</span>
-				</div>
+				<div class="breadcrumbs__item"><span data-page-target="intro">Главная</span></div>
+				<div class="breadcrumbs__item">Запись</div>
 			</div>
 			<div class="groups">
 				<div class="groups-tabs">
-					<button class="groups-tabs__btn active">Все</button>
-					<button class="groups-tabs__btn">1</button>
-					<button class="groups-tabs__btn">2</button>
-					<button class="groups-tabs__btn">3</button>
-					<button class="groups-tabs__btn">4</button>
+					<button class="groups-tabs__btn active" data-course-target="all">Все</button>
+					<button class="groups-tabs__btn" data-course-target="1">1</button>
+					<button class="groups-tabs__btn" data-course-target="2">2</button>
+					<button class="groups-tabs__btn" data-course-target="3">3</button>
+					<button class="groups-tabs__btn" data-course-target="4">4</button>
 				</div>
-				<div class="groups__grid">
-					<div class="groups-item">
-						<div class="groups-item__title">1пк1</div>
-						<div class="groups-item__count">
-							<span class="cur">33</span> /
-							<span class="all">33</span>
+
+				<div class="groups__wrapper">
+					<div class="groups__course active" data-course="1">
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
 						</div>
 					</div>
-					<div class="groups-item">
-						<div class="groups-item__title">1пк1</div>
-						<div class="groups-item__count">
-							<span class="cur">33</span> /
-							<span class="all">33</span>
+					<div class="groups__course active" data-course="2">
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
 						</div>
 					</div>
-					<div class="groups-item">
-						<div class="groups-item__title">1пк1</div>
-						<div class="groups-item__count">
-							<span class="cur">33</span> /
-							<span class="all">33</span>
+					<div class="groups__course active" data-course="3">
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
 						</div>
 					</div>
-					<div class="groups-item">
-						<div class="groups-item__title">1пк1</div>
-						<div class="groups-item__count">
-							<span class="cur">33</span> /
-							<span class="all">33</span>
+					<div class="groups__course active" data-course="4">
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
 						</div>
-					</div>
-					<div class="groups-item">
-						<div class="groups-item__title">1пк1</div>
-						<div class="groups-item__count">
-							<span class="cur">33</span> /
-							<span class="all">33</span>
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
 						</div>
-					</div>
-					<div class="groups-item">
-						<div class="groups-item__title">1пк1</div>
-						<div class="groups-item__count">
-							<span class="cur">33</span> /
-							<span class="all">33</span>
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
 						</div>
-					</div>
-					<div class="groups-item">
-						<div class="groups-item__title">1пк1</div>
-						<div class="groups-item__count">
-							<span class="cur">33</span> /
-							<span class="all">33</span>
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<section class="write-group" data-page="write-group">
+		<div class="container">
+			<div class="breadcrumbs">
+				<div class="breadcrumbs__item"><span data-page-target="intro">Главная</span></div>
+				<div class="breadcrumbs__item"><span data-page-target="write">Запись</span></div>
+				<div class="breadcrumbs__item">1пк1</div>
+			</div>
+			<div class="write-group__header">
+				<div class="write-group__count"><span class="cur">34</span> / <span class="all">34</span></div>
+				<button class="write-group__save-btn btn">Применить</button>
+			</div>
+			<div class="write-group__wrapper">
+				<div class="write-group-item">
+					<div class="write-group-item__name">Брюхов Виктор</div>
+					<div class="write-group-item__cb">
+						<input type="checkbox" id="ch1" checked>
+					</div>
+				</div>
+				<div class="write-group-item">
+					<div class="write-group-item__name">Брюхов Виктор</div>
+					<div class="write-group-item__cb">
+						<input type="checkbox" id="ch1" checked>
+					</div>
+				</div>
+				<div class="write-group-item">
+					<div class="write-group-item__name">Брюхов Виктор</div>
+					<div class="write-group-item__cb">
+						<input type="checkbox" id="ch1" checked>
+					</div>
+				</div>
+				<div class="write-group-item">
+					<div class="write-group-item__name">Брюхов Виктор</div>
+					<div class="write-group-item__cb">
+						<input type="checkbox" id="ch1" checked>
+					</div>
+				</div>
+				<div class="write-group-item">
+					<div class="write-group-item__name">Брюхов Виктор</div>
+					<div class="write-group-item__cb">
+						<input type="checkbox" id="ch1" checked>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="history" data-page="history">
+		<div class="container">
+			<div class="breadcrumbs">
+				<div class="breadcrumbs__item"><span data-page-target="intro">Главная</span></div>
+				<div class="breadcrumbs__item">История</div>
+			</div>
+
+			<button class="history__calendar-btn">4 Сентября 2023</button>
+
+			<div class="groups">
+				<div class="groups-tabs">
+					<button class="groups-tabs__btn active" data-course-target="all">Все</button>
+					<button class="groups-tabs__btn" data-course-target="1">1</button>
+					<button class="groups-tabs__btn" data-course-target="2">2</button>
+					<button class="groups-tabs__btn" data-course-target="3">3</button>
+					<button class="groups-tabs__btn" data-course-target="4">4</button>
+				</div>
+
+				<div class="groups__wrapper">
+					<div class="groups__course active" data-course="1">
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">1пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+					</div>
+					<div class="groups__course active" data-course="2">
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">2пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+					</div>
+					<div class="groups__course active" data-course="3">
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">3пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+					</div>
+					<div class="groups__course active" data-course="4">
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+						<div class="groups-item">
+							<div class="groups-item__title">4пк1</div>
+							<div class="groups-item__count">
+								<span class="cur">33</span> /
+								<span class="all">33</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="calendar">
+		<div class="calendar__wrapper">
+			<div class="calendar__selects">
+				<div class="select-with-image calendar-select">
+					<div class="select-with-image__field">
+						<img class="select-with-image__arrow-icon" src="img/select-arrow.svg" alt="">
+					</div>
+				
+					<div class="select-with-image__list">
+						<div class="select-with-image__btn">2023</div>
+					</div>
+				</div>
+				<div class="select-with-image calendar-select">
+					<div class="select-with-image__field">
+						<img class="select-with-image__arrow-icon" src="img/select-arrow.svg" alt="">
+					</div>
+
+					<div class="select-with-image__list">
+						<div class="select-with-image__btn">Январь</div>
+						<div class="select-with-image__btn">Февраль</div>
+						<div class="select-with-image__btn">Март</div>
+						<div class="select-with-image__btn">Апрель</div>
+						<div class="select-with-image__btn">Май</div>
+						<div class="select-with-image__btn">Июнь</div>
+						<div class="select-with-image__btn">Июль</div>
+						<div class="select-with-image__btn">Август</div>
+						<div class="select-with-image__btn">Сентябрь</div>
+						<div class="select-with-image__btn">Октябрь</div>
+						<div class="select-with-image__btn">Ноябрь</div>
+						<div class="select-with-image__btn">Декабрь</div>
+					</div>
+				</div>
+			</div>
+			<div class="calendar__body">
+				<table>
+					<thead>
+						<tr>
+							<th>Пн</th>
+							<th>Вт</th>
+							<th>Ср</th>
+							<th>Чт</th>
+							<th>Пт</th>
+							<th>Сб</th>
+							<th>Вс</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="extra">28</td>
+							<td class="extra">29</td>
+							<td class="extra">30</td>
+							<td class="extra">31</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td class="cur">4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+							<td>8</td>
+							<td>9</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td>11</td>
+							<td>12</td>
+							<td>13</td>
+							<td>14</td>
+							<td>15</td>
+							<td>16</td>
+							<td>17</td>
+						</tr>
+						<tr>
+							<td>18</td>
+							<td>19</td>
+							<td>20</td>
+							<td>21</td>
+							<td>22</td>
+							<td>23</td>
+							<td>24</td>
+						</tr>
+						<tr>
+							<td>25</td>
+							<td>26</td>
+							<td>27</td>
+							<td>28</td>
+							<td>29</td>
+							<td>30</td>
+							<td class="extra">1</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<button class="btn calendar__apply-btn">Выбрать</button>
+		</div>
+	</div>
 </body>
 
 </html>

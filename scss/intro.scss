@@ -28,9 +28,11 @@
 	}
 
 	&__img {
+		pointer-events: none;
 	}
 
 	&__text {
+		pointer-events: none;
 		font-size: 20px;
 	}
 }

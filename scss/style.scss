@@ -31,35 +31,166 @@ $maxWidth: 480;
 
 	&__item {
 		color: white;
-		a {
-			text-decoration: underline;
-			color: inherit;
 
-			&:visited {
-				color: inherit;
-			}
-		}
 		&:not(:last-child) {
 			&::after {
 				content: ">";
-				margin-right: 0.4em;
+				margin: 0 0.4em;
 			}
 		}
 
 		span {
-			&::after {
-				display: none;
-			}
+			text-decoration: underline;
 		}
 	}
 }
 
+.btn {
+	background-color: var(--btn-color);
+	border-radius: 16px;
+	color: white;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 5px 10px;
+}
 
+section {
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}
+
+.select-with-image {
+	user-select: none;
+	position: relative;
+	background-color: transparent;
+	width: max-content;
+
+	&__field {
+		position: relative;
+		padding-right: 10px;
+		display: block;
+
+		.select-with-image__btn {
+			pointer-events: none;
+		}
+	}
+	&__arrow-icon {
+		position: absolute;
+		display: block;
+		top: 50%;
+		right: 0;
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+	&__list {
+		position: absolute;
+		border: 1px solid rgba(30, 30, 33, 1);
+		background-color: var(--bg-color);
+		border: 1px solid rgba(white, 0.5);
+		left: 0;
+		bottom: 0;
+		transform: translateY(100%);
+		width: max-content;
+		display: none;
+		z-index: 10;
+		& > .select-with-image__btn {
+			transition: none;
+			padding-right: 14px;
+			&:hover {
+				background-color: rgb(30, 144, 255);
+			}
+		}
+		&.active {
+			display: block;
+		}
+	}
+
+	&__btn {
+		padding: 5px 8px;
+		display: flex;
+		align-items: center;
+		color: white;
+
+		img {
+			max-width: 22px;
+			min-height: 1em;
+			margin-right: 9px;
+		}
+	}
+}
+
+.calendar {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(#4f4f4f, 0.5);
+	backdrop-filter: blur(4px);
+	display: none;
+
+	&__wrapper {
+		border-radius: 16px;
+		padding: 10px 8px 16px;
+		background-color: var(--bg-color);
+		width: 95%;
+		margin: 85px auto 0;
+	}
+
+	&__selects {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	&__body {
+		margin-top: 8px;
+		table {
+			color: white;
+			font-weight: 600;
+			text-align: center;
+			width: 100%;
+			border-collapse: collapse;
+
+			thead {
+				background-color: rgba(white, 0.36);
+			}
+
+			th,
+			td {
+				padding: 6px;
+			}
+
+			.extra {
+				opacity: 0.5;
+			}
+			.cur {
+				box-shadow: inset 0 0 0 1px white;
+			}
+		}
+	}
+
+	&__apply-btn {
+		margin-left: auto;
+		display: block;
+		margin-top: 12px;
+	}
+
+	&.active {
+		display: block;
+	}
+}
 
 //===========================================================
 
 @import "intro";
 @import "groups";
+@import "write-group";
+@import "history";
 
 //===========================================================
 
