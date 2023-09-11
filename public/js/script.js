@@ -17,7 +17,11 @@ document.addEventListener('click', function (evt) {
 	} else if (!target.closest('.select-with-image') && document.querySelector('.select-with-image__list.active')) {
 		const allSelect = document.querySelectorAll('.select-with-image__list')
 		Array.from(allSelect).map(e => e.classList.remove('active'))
+	} else if (target.tagName === 'TD' && target.closest('.calendar') && !target.classList.contains('extra')) {
+		console.log(target);
 	}
+
+	// console.log(target);
 })
 
 //tabs
