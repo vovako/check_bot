@@ -11,9 +11,13 @@
 		font-size: 18px;
 
 		input {
-			width: 2em;
+			width: 10em;
 			line-height: 1;
 			text-align: center;
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+			}
 		}
 	}
 

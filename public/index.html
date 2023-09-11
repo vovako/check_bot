@@ -241,17 +241,13 @@
 				<div class="write-group__count"><span class="cur"><input max="34" min="0" type="number" value="34"
 							inputmode="numeric" oninput="{
 								let value = this.value
-
-								if(Number(value) > Number(this.max)){ 
-									value = this.value.slice(0, -1)
-
-									if (value.slice(0, -1) > Number(this.max)) {
-										value = this.value.slice(0, -1)
-									}
-									this.value = value
-									return false;
+								while (Number(value) > Number(this.max)) {
+									value = value.slice(0, -1)
 								}
-								}"></span>
+								this.value = value
+								return false;
+								}"
+						onfocus="this.select()"></span>
 					/ <span class="all">34</span></div>
 				<button class="write-group__save-btn btn">Применить</button>
 			</div>

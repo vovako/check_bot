@@ -362,9 +362,12 @@ section.active {
   font-size: 18px;
 }
 .write-group__count input {
-  width: 2em;
+  width: 10em;
   line-height: 1;
   text-align: center;
+}
+.write-group__count input::-webkit-outer-spin-button, .write-group__count input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 .write-group__wrapper {
   margin-top: 25px;
