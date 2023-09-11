@@ -6,14 +6,13 @@ import { log } from 'console'
 const api=express.Router()
 
 api.post('/getgroups',express.json(),async(req,res)=>{
-    let groups=await query("select * from Class")
+    let groups=await query("select Class.*,teacher.fullname as teacher from Class left join teacher on Class.id_teacher=teacher.id_teacher")
     for(let i=0;i<groups?.length;i++){
-        groups[i].participants=(await query("select count(*) as participants from Participant where id_group=?",[groups[i].ID_group]))[0].participants
-        groups[i].omissions=(await query("select count(distinct Omission.id_participant) as omissions from Omission left join Participant on Omission.id_participant=Participant.id_participant where Participant.id_group=? and day(date_omission)=day(now())",[groups[i].ID_group]))[0].omissions
+        //groups[i].participants=(await query("select count(*) as participants from Participant where id_group=?",[groups[i].ID_group]))[0].participants
         if(req?.body?.date){
             let date=new Date(req?.body?.date)
             //date=date.toLocaleDateString().split('/').map(el=>el<10?'0'+el:el)
-            if(date)groups[i].ismarked=(await query("select exists(select * from Record where date(date_rec)=date(?) and id_group=?) as marked",[date,groups[i].ID_group]))[0].marked
+            if(date)groups[i].records=(await query("select Record.date_rec,(select count(*) from Omission where Omission.id_record=Record.id_record) as count_omissions from Record where Record.id_group=? and day(date_rec)=day(now())",[groups[i].ID_group]))
         }
     }
 
