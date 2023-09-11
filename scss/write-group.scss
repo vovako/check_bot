@@ -9,6 +9,12 @@
 		color: white;
 		font-weight: 600;
 		font-size: 18px;
+
+		input {
+			width: 2em;
+			line-height: 1;
+			text-align: center;
+		}
 	}
 
 	&__save-btn {
