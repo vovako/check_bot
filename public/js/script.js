@@ -18,7 +18,8 @@ document.addEventListener('click', function (evt) {
 		const allSelect = document.querySelectorAll('.select-with-image__list')
 		Array.from(allSelect).map(e => e.classList.remove('active'))
 	} else if (target.tagName === 'TD' && target.closest('.calendar') && !target.classList.contains('extra')) {
-		console.log(target);
+		target.closest('.calendar').querySelector('td.cur').classList.remove('cur')
+		target.classList.add('cur')
 	}
 
 	// console.log(target);
