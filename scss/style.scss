@@ -27,7 +27,7 @@ $maxWidth: 480;
 	align-items: center;
 	flex-wrap: wrap;
 	font-size: 16px;
-	padding: 20px 0;
+	padding-bottom: 20px;
 
 	&__item {
 		color: white;
@@ -56,6 +56,7 @@ $maxWidth: 480;
 
 section {
 	display: none;
+	padding: 20px 0;
 
 	&.active {
 		display: block;
@@ -136,7 +137,7 @@ section {
 		border-radius: 16px;
 		padding: 10px 8px 16px;
 		background-color: var(--bg-color);
-		width: 95%;
+		width: min(95%, 350px);
 		margin: 85px auto 0;
 	}
 
@@ -145,6 +146,11 @@ section {
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
+
+		.select-with-image__list {
+			overflow-y: auto;
+			height: max-content;
+		}
 	}
 
 	&__body {
@@ -191,6 +197,7 @@ section {
 @import "groups";
 @import "write-group";
 @import "history";
+@import "history.group";
 
 //===========================================================
 

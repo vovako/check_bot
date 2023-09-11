@@ -75,10 +75,12 @@ const calendarBtn = document.querySelector('.history__calendar-btn')
 const calendar = document.querySelector('.calendar')
 calendarBtn.addEventListener('click', function () {
 	calendar.classList.add('active')
+	document.body.style.overflow = 'hidden'
 })
 calendar.addEventListener('click', function (evt) {
 	if (evt.target === calendar) {
 		calendar.classList.remove('active')
+		document.body.style.overflow = null
 	}
 })
 

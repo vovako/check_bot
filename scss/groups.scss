@@ -4,7 +4,7 @@
 	}
 
 	&__course {
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
 		gap: 6px;
 		display: none;
 
