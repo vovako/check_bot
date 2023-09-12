@@ -180,7 +180,7 @@ section {
 			}
 
 			td {
-				&:not(.extra) {
+				&:not(.extra):not(.cur) {
 					cursor: pointer;
 				}
 			}
@@ -188,8 +188,15 @@ section {
 			.extra {
 				opacity: 0.5;
 			}
+			.active {
+				box-shadow: inset 0 0 0 3px white;
+				border-radius: 5px;
+			}
 			.cur {
-				box-shadow: inset 0 0 0 1px white;
+				background-color: rgba(white, 0.6);
+				color: var(--bg-color);
+				border-radius: 5px;
+
 			}
 		}
 	}

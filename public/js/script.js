@@ -117,8 +117,8 @@ document.addEventListener('click', function (evt) {
 		const allSelect = document.querySelectorAll('.select-with-image__list')
 		Array.from(allSelect).map(e => e.classList.remove('active'))
 	} else if (target.tagName === 'TD' && target.closest('.calendar') && !target.classList.contains('extra')) {
-		target.closest('.calendar').querySelector('td.cur').classList.remove('cur')
-		target.classList.add('cur')
+		target.closest('.calendar').querySelector('td.active').classList.remove('active')
+		target.classList.add('active')
 	}
 })
 
@@ -178,6 +178,7 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 //calendar
 const calendarBtn = document.querySelector('.history__calendar-btn')
 const calendar = document.querySelector('.calendar')
+const calendarApplyBtn = document.querySelector('.calendar__apply-btn')
 calendarBtn.addEventListener('click', function () {
 	calendar.classList.add('active')
 	document.body.style.overflow = 'hidden'
@@ -188,6 +189,17 @@ calendar.addEventListener('click', function (evt) {
 		document.body.style.overflow = null
 	}
 })
+calendarApplyBtn.addEventListener('click', function() {
+	const selectedYear = document.querySelector('.calendar-year .select-with-image__field .select-with-image__btn').textContent
+	const selectedMonth = document.querySelector('.calendar-month .select-with-image__field .select-with-image__btn').dataset.month
+	let selectedDay = document.querySelector('.calendar__body tbody .active').textContent
+	selectedDay = selectedDay.length === 1 ? '0' + selectedDay : selectedDay
+	const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`
+	console.log(selectedDate);
+
+	
+})
+
 
 
 function toPage(targetPage) {
@@ -204,7 +216,7 @@ applyBtn.addEventListener('click', function () {
 	const cameCount = +section.querySelector('.write-group__count .cur input').value
 	const allStudentsCount = +section.querySelector('.write-group__count .all').textContent
 	const absentCount = allStudentsCount - cameCount
-	
+
 	fetch(`${ORIGIN}/api/record/addrecord`, {
 		method: 'post',
 		body: JSON.stringify({
@@ -225,6 +237,6 @@ applyBtn.addEventListener('click', function () {
 
 })
 
-
 //change-btn
+
 
