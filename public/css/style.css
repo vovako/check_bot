@@ -351,9 +351,6 @@ section.active {
 .groups-table td .curator {
   font-size: 10px;
 }
-.groups-table tbody tr:nth-child(odd) td:first-child {
-  text-align: left;
-}
 
 .write-group__header {
   display: flex;

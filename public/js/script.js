@@ -10,8 +10,7 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 	}),
 	headers: {
 		'Content-Type': 'application/json'
-	},
-	cache: "no-cache"
+	}
 }).then(res => res.json())
 	.then(json => {
 		console.log(json);
@@ -41,20 +40,27 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 				const curatorParts = group.teacher.split(' ')
 				const curatorName = `${curatorParts[0]} ${curatorParts[1][0]} ${curatorParts[2][0]}`;
 
+				const recordsCount = group.records.length
+				let additRows = ''
+				for (let i = 1; i < recordsCount; i++) {
+					additRows += `
+					<tr>
+						<td>${group.records[1]?.time.slice(0, -3) ?? '-'}</td>
+						<td>${group.records[1]?.absent ?? '-'}</td>
+					</tr>
+					`
+				}
 				historyBox.insertAdjacentHTML('beforeend', `
 				<tr>
-					<td rowspan="2">
+					<td rowspan="${Math.max(recordsCount, 1)}" style="text-align: left;">
 						<span class="group">${group.id_group}</span> <br>
 						<span class="curator">${curatorName}</span>
 					</td>
-					<td rowspan="2">${group.participants}</td>
+					<td rowspan="${Math.max(recordsCount, 1) }">${group.participants}</td>
 					<td>${group.records[0]?.time.slice(0, -3) ?? '-'}</td>
 					<td>${group.records[0]?.absent ?? '-'}</td>
 				</tr>
-				<tr>
-					<td>${group.records[1]?.time.slice(0, -3) ?? '-'}</td>
-					<td>${group.records[1]?.absent ?? '-'}</td>
-				</tr>
+				${additRows}
 				`)
 			});
 		}
@@ -113,6 +119,29 @@ document.addEventListener('click', function (evt) {
 	} else if (target.tagName === 'TD' && target.closest('.calendar') && !target.classList.contains('extra')) {
 		target.closest('.calendar').querySelector('td.cur').classList.remove('cur')
 		target.classList.add('cur')
+	} else if (target.classList.contains('write-group__save-btn')) {
+
+		const section = target.closest('section')
+		const groupId = [...section.querySelector('.breadcrumbs').children].slice(-1)[0].textContent
+		const absentCount = section.querySelector('.write-group__count .cur input').value
+
+		fetch(`${ORIGIN}/api/record/addrecord`, {
+			method: 'post',
+			body: JSON.stringify({
+				"id_duty": 12,
+				"id_group": groupId,
+				"absent": absentCount
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(res => res.json())
+			.then(json => {
+				console.log(json)
+				toPage('write')
+			})
+			.catch(err => console.log(err))
 	}
 })
 
