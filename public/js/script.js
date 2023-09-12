@@ -1,20 +1,20 @@
 const ORIGIN = 'http://192.168.100.71:3000'
-let GROUPS_DATA = {}
+let GROUPS_DATA;
 
 const curDate = new Date().toISOString().split('T')[0]
 
-const getGroupsRaw = {
-	"date": curDate
-}
 fetch(`${ORIGIN}/api/groups/getgroups`, {
-	method: 'post',	
-	body: JSON.stringify(getGroupsRaw),
+	method: 'post',
+	body: JSON.stringify({
+		"date": curDate
+	}),
 	headers: {
 		'Content-Type': 'application/json'
-	}
+	},
+	cache: "no-cache"
 }).then(res => res.json())
 	.then(json => {
-		console.log(json)
+		console.log(json);
 
 		if (json.code === 200) {
 			GROUPS_DATA = json.data
@@ -22,7 +22,7 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 			const historyPage = document.querySelector('.history')
 
 			GROUPS_DATA.forEach(group => {
-				const omissions = group.records.length ? group.records.pop().absent : 0
+				const omissions = group.records.length ? group.records.slice(-1)[0].absent : 0
 				const cameCount = group.participants - +omissions
 
 				const course = group.id_group[0]
@@ -40,7 +40,7 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 				const historyBox = historyPage.querySelector(`.groups__course[data-course="${course}"]`)
 				const curatorParts = group.teacher.split(' ')
 				const curatorName = `${curatorParts[0]} ${curatorParts[1][0]} ${curatorParts[2][0]}`;
-				
+
 				historyBox.insertAdjacentHTML('beforeend', `
 				<tr>
 					<td rowspan="2">
@@ -58,7 +58,8 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 				`)
 			});
 		}
-	});
+	})
+	.catch(err => console.log(err))
 
 document.addEventListener('click', function (evt) {
 	const target = evt.target
