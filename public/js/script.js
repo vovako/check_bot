@@ -21,8 +21,6 @@ document.addEventListener('click', function (evt) {
 		target.closest('.calendar').querySelector('td.cur').classList.remove('cur')
 		target.classList.add('cur')
 	}
-
-	// console.log(target);
 })
 
 //tabs
@@ -47,7 +45,6 @@ allTabs.forEach(tabs => {
 	})
 })
 
-
 //dropdown
 document.querySelectorAll('.select-with-image').forEach(dropdown => {
 	const ddSelect = dropdown.querySelector('.select-with-image__field')
@@ -64,6 +61,10 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 			if (active != list) {
 				active.classList.remove('active')
 			}
+			if (list.getBoundingClientRect().bottom + 20 > window.innerHeight) {
+				const offset = window.innerHeight - list.getBoundingClientRect().top - 20
+				list.style.height = offset + 'px'
+			}
 		}
 	})
 	buttons.forEach(btn => {
@@ -74,6 +75,7 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 		})
 	})
 })
+
 
 //calendar
 const calendarBtn = document.querySelector('.history__calendar-btn')

@@ -33,6 +33,7 @@ $maxWidth: 480;
 		color: white;
 
 		&:not(:last-child) {
+			cursor: pointer;
 			&::after {
 				content: ">";
 				margin: 0 0.4em;
@@ -131,6 +132,8 @@ section {
 	right: 0;
 	background-color: rgba(#4f4f4f, 0.5);
 	backdrop-filter: blur(4px);
+	align-items: center;
+	justify-content: center;
 	display: none;
 
 	&__wrapper {
@@ -138,7 +141,6 @@ section {
 		padding: 10px 8px 16px;
 		background-color: var(--bg-color);
 		width: min(95%, 350px);
-		margin: 85px auto 0;
 	}
 
 	&__selects {
@@ -149,7 +151,12 @@ section {
 
 		.select-with-image__list {
 			overflow-y: auto;
-			height: max-content;
+			&::-webkit-scrollbar {
+				width: 4px;
+			}
+			&::-webkit-scrollbar-thumb {
+				background-color: rgba(white, 0.3);
+			}
 		}
 	}
 
@@ -187,7 +194,7 @@ section {
 	}
 
 	&.active {
-		display: block;
+		display: flex;
 	}
 }
 

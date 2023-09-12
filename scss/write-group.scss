@@ -9,6 +9,16 @@
 		color: white;
 		font-weight: 600;
 		font-size: 18px;
+
+		input {
+			width: 10em;
+			line-height: 1;
+			text-align: center;
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+			}
+		}
 	}
 
 	&__save-btn {

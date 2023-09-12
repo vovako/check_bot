@@ -85,6 +85,9 @@ body {
 .breadcrumbs__item {
   color: white;
 }
+.breadcrumbs__item:not(:last-child) {
+  cursor: pointer;
+}
 .breadcrumbs__item:not(:last-child)::after {
   content: ">";
   margin: 0 0.4em;
@@ -179,6 +182,8 @@ section.active {
   background-color: rgba(79, 79, 79, 0.5);
   -webkit-backdrop-filter: blur(4px);
           backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
   display: none;
 }
 .calendar__wrapper {
@@ -186,7 +191,6 @@ section.active {
   padding: 10px 8px 16px;
   background-color: var(--bg-color);
   width: min(95%, 350px);
-  margin: 85px auto 0;
 }
 .calendar__selects {
   display: flex;
@@ -196,8 +200,12 @@ section.active {
 }
 .calendar__selects .select-with-image__list {
   overflow-y: auto;
-  height: -moz-max-content;
-  height: max-content;
+}
+.calendar__selects .select-with-image__list::-webkit-scrollbar {
+  width: 4px;
+}
+.calendar__selects .select-with-image__list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 .calendar__body {
   margin-top: 8px;
@@ -228,7 +236,7 @@ section.active {
   margin-top: 12px;
 }
 .calendar.active {
-  display: block;
+  display: flex;
 }
 
 .intro {
@@ -270,16 +278,22 @@ section.active {
 .groups__wrapper {
   margin-top: 20px;
 }
-.groups__course {
+.groups__course:is(div) {
   grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
   gap: 6px;
   display: none;
 }
-.groups__course:not(:last-child) {
+.groups__course:is(div):not(:last-child) {
   margin-bottom: 30px;
 }
-.groups__course.active {
+.groups__course:is(div).active {
   display: grid;
+}
+.groups__course:is(tbody) {
+  display: none;
+}
+.groups__course:is(tbody).active {
+  display: table-row-group;
 }
 
 .groups-tabs {
@@ -317,6 +331,26 @@ section.active {
   background-color: var(--checked-group);
 }
 
+.groups-table {
+  color: white;
+  border-collapse: collapse;
+  width: 100%;
+}
+.groups-table th,
+.groups-table td {
+  border: 1px solid white;
+  padding: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+.groups-table th .curator,
+.groups-table td .curator {
+  font-size: 10px;
+}
+.groups-table tbody tr:first-child td:first-child {
+  text-align: left;
+}
+
 .write-group__header {
   display: flex;
   align-items: center;
@@ -326,6 +360,14 @@ section.active {
   color: white;
   font-weight: 600;
   font-size: 18px;
+}
+.write-group__count input {
+  width: 10em;
+  line-height: 1;
+  text-align: center;
+}
+.write-group__count input::-webkit-outer-spin-button, .write-group__count input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 .write-group__wrapper {
   margin-top: 25px;

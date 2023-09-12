@@ -4,16 +4,26 @@
 	}
 
 	&__course {
-		grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-		gap: 6px;
-		display: none;
+		&:is(div) {
+			grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+			gap: 6px;
+			display: none;
 
-		&:not(:last-child) {
-			margin-bottom: 30px;
+			&:not(:last-child) {
+				margin-bottom: 30px;
+			}
+
+			&.active {
+				display: grid;
+			}
 		}
 
-		&.active {
-			display: grid;
+		&:is(tbody) {
+			display: none;
+
+			&.active {
+				display: table-row-group;
+			}
 		}
 	}
 }
@@ -52,5 +62,32 @@
 
 	&.checked {
 		background-color: var(--checked-group);
+	}
+}
+.groups-table {
+	color: white;
+	border-collapse: collapse;
+	width: 100%;
+
+	th,
+	td {
+		border: 1px solid white;
+		padding: 4px;
+		font-size: 14px;
+		text-align: center;
+		.curator {
+			font-size: 10px;
+		}
+	}
+	tbody {
+		tr {
+			&:first-child {
+				td {
+					&:first-child {
+						text-align: left;
+					}
+				}
+			}
+		}
 	}
 }
