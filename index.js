@@ -11,3 +11,14 @@ setApi(server)
 server.use(express.urlencoded({ extended: true }))
 
 server.listen(3000,()=>console.log(`Server was started on: http://localhost:3000`))
+
+// import config from './config.js';
+// import { Bot } from 'grammy';
+
+// const bot = new Bot(config.TELEGRAM_BOT_TOKEN);
+
+// bot.on("message", (ctx) => ctx.reply(ctx.chat.id));
+// bot.command('s', ctx => ctx.reply())
+// // bot.api.setChatMenuButton()
+
+// bot.start();
