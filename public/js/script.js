@@ -21,7 +21,7 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 			const historyPage = document.querySelector('.history')
 
 			GROUPS_DATA.forEach(group => {
-				const omissions = group.records.length ? group.records.slice(-1)[0].absent : 0
+				const omissions = group.records.slice(-1)[0]?.absent ?? 0
 				const cameCount = group.participants - +omissions
 
 				const course = group.id_group[0]
@@ -45,8 +45,8 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 				for (let i = 1; i < recordsCount; i++) {
 					additRows += `
 					<tr>
-						<td>${group.records[1]?.time.slice(0, -3) ?? '-'}</td>
-						<td>${group.records[1]?.absent ?? '-'}</td>
+						<td>${group.records[i]?.time.slice(0, -3) ?? '-'}</td>
+						<td>${group.records[i]?.absent ?? '-'}</td>
 					</tr>
 					`
 				}
@@ -56,7 +56,7 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 						<span class="group">${group.id_group}</span> <br>
 						<span class="curator">${curatorName}</span>
 					</td>
-					<td rowspan="${Math.max(recordsCount, 1) }">${group.participants}</td>
+					<td rowspan="${Math.max(recordsCount, 1)}">${group.participants}</td>
 					<td>${group.records[0]?.time.slice(0, -3) ?? '-'}</td>
 					<td>${group.records[0]?.absent ?? '-'}</td>
 				</tr>
@@ -119,29 +119,6 @@ document.addEventListener('click', function (evt) {
 	} else if (target.tagName === 'TD' && target.closest('.calendar') && !target.classList.contains('extra')) {
 		target.closest('.calendar').querySelector('td.cur').classList.remove('cur')
 		target.classList.add('cur')
-	} else if (target.classList.contains('write-group__save-btn')) {
-
-		const section = target.closest('section')
-		const groupId = [...section.querySelector('.breadcrumbs').children].slice(-1)[0].textContent
-		const absentCount = section.querySelector('.write-group__count .cur input').value
-
-		fetch(`${ORIGIN}/api/record/addrecord`, {
-			method: 'post',
-			body: JSON.stringify({
-				"id_duty": 12,
-				"id_group": groupId,
-				"absent": absentCount
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(res => res.json())
-			.then(json => {
-				console.log(json)
-				toPage('write')
-			})
-			.catch(err => console.log(err))
 	}
 })
 
@@ -198,7 +175,6 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 	})
 })
 
-
 //calendar
 const calendarBtn = document.querySelector('.history__calendar-btn')
 const calendar = document.querySelector('.calendar')
@@ -218,4 +194,37 @@ function toPage(targetPage) {
 	document.querySelector('section.active').classList.remove('active')
 	document.querySelector(`[data-page="${targetPage}"]`).classList.add('active')
 }
+
+//apply-btn
+const applyBtn = document.querySelector('.write-group__save-btn')
+applyBtn.addEventListener('click', function () {
+
+	const section = applyBtn.closest('section')
+	const groupId = [...section.querySelector('.breadcrumbs').children].slice(-1)[0].textContent
+	const cameCount = +section.querySelector('.write-group__count .cur input').value
+	const allStudentsCount = +section.querySelector('.write-group__count .all').textContent
+	const absentCount = allStudentsCount - cameCount
+	
+	fetch(`${ORIGIN}/api/record/addrecord`, {
+		method: 'post',
+		body: JSON.stringify({
+			"id_duty": 12,
+			"id_group": groupId,
+			"absent": absentCount
+		}),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(res => res.json())
+		.then(json => {
+			console.log(json)
+			toPage('write')
+		})
+		.catch(err => console.log(err))
+
+})
+
+
+//change-btn
 
