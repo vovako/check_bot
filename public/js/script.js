@@ -1,8 +1,57 @@
+
+
+//on load
 const ORIGIN = 'http://192.168.100.71:3000'
 let GROUPS_DATA;
-
 const curDate = new Date().toISOString().split('T')[0]
 
+//calendar
+const calendar = document.querySelector('.calendar')
+const calendarBtn = document.querySelector('.history__calendar-btn')
+const calendarApplyBtn = calendar.querySelector('.calendar__apply-btn')
+
+const curYear = curDate.substring(0, 4)
+const curMonth = curDate.substring(5, 7)
+const curDay = curDate.substring(8, 10)
+
+const yearSelect = calendar.querySelector('.calendar-year')
+const monthSelect = calendar.querySelector('.calendar-month')
+
+updateLongDate(curDate)
+yearSelect.querySelector('.select-with-image__btn').replaceWith([...yearSelect.querySelector('.select-with-image__list').querySelectorAll('.select-with-image__btn')].filter(s => s.textContent === curYear)[0])
+monthSelect.querySelector('.select-with-image__btn').replaceWith(monthSelect.querySelector(`[data-month="${curMonth}"]`));
+[...calendar.querySelectorAll('.calendar__body tbody td')].filter(d => !d.classList.contains('extra') && d.textContent === curDay)[0].className = 'cur active'
+
+calendarBtn.addEventListener('click', function () {
+	calendar.classList.add('active')
+	document.body.style.overflow = 'hidden'
+})
+calendar.addEventListener('click', function (evt) {
+	if (evt.target === calendar) {
+		closeCalendar()
+	}
+})
+calendarApplyBtn.addEventListener('click', function () {
+	const selectedYear = yearSelect.querySelector('.select-with-image__field .select-with-image__btn').textContent
+	const selectedMonth = monthSelect.querySelector('.select-with-image__field .select-with-image__btn').dataset.month
+	let selectedDay = calendar.querySelector('.calendar__body tbody .active').textContent
+	selectedDay = selectedDay.length === 1 ? '0' + selectedDay : selectedDay
+
+	const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`
+	updateLongDate(selectedDate)
+	closeCalendar()
+})
+
+function updateLongDate(date) {
+	const labelBtn = new Date(date).toLocaleDateString('ru', { year: 'numeric', month: 'long', day: 'numeric' }).slice(0, -3)
+	calendarBtn.textContent = labelBtn
+}
+function closeCalendar() {
+	calendar.classList.remove('active')
+	document.body.style.overflow = null
+}
+
+//get groups
 fetch(`${ORIGIN}/api/groups/getgroups`, {
 	method: 'post',
 	body: JSON.stringify({
@@ -175,30 +224,7 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 	})
 })
 
-//calendar
-const calendarBtn = document.querySelector('.history__calendar-btn')
-const calendar = document.querySelector('.calendar')
-const calendarApplyBtn = document.querySelector('.calendar__apply-btn')
-calendarBtn.addEventListener('click', function () {
-	calendar.classList.add('active')
-	document.body.style.overflow = 'hidden'
-})
-calendar.addEventListener('click', function (evt) {
-	if (evt.target === calendar) {
-		calendar.classList.remove('active')
-		document.body.style.overflow = null
-	}
-})
-calendarApplyBtn.addEventListener('click', function() {
-	const selectedYear = document.querySelector('.calendar-year .select-with-image__field .select-with-image__btn').textContent
-	const selectedMonth = document.querySelector('.calendar-month .select-with-image__field .select-with-image__btn').dataset.month
-	let selectedDay = document.querySelector('.calendar__body tbody .active').textContent
-	selectedDay = selectedDay.length === 1 ? '0' + selectedDay : selectedDay
-	const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`
-	console.log(selectedDate);
 
-	
-})
 
 
 
@@ -206,6 +232,8 @@ function toPage(targetPage) {
 	document.querySelector('section.active').classList.remove('active')
 	document.querySelector(`[data-page="${targetPage}"]`).classList.add('active')
 }
+
+
 
 //apply-btn
 const applyBtn = document.querySelector('.write-group__save-btn')
