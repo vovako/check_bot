@@ -81,7 +81,7 @@
 	}
 	tbody {
 		tr {
-			&:first-child {
+			&:nth-child(odd){
 				td {
 					&:first-child {
 						text-align: left;

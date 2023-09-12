@@ -176,6 +176,13 @@ section {
 			th,
 			td {
 				padding: 6px;
+				cursor: default;
+			}
+
+			td {
+				&:not(.extra) {
+					cursor: pointer;
+				}
 			}
 
 			.extra {

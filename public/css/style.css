@@ -223,6 +223,10 @@ section.active {
 .calendar__body table th,
 .calendar__body table td {
   padding: 6px;
+  cursor: default;
+}
+.calendar__body table td:not(.extra) {
+  cursor: pointer;
 }
 .calendar__body table .extra {
   opacity: 0.5;
@@ -347,7 +351,7 @@ section.active {
 .groups-table td .curator {
   font-size: 10px;
 }
-.groups-table tbody tr:first-child td:first-child {
+.groups-table tbody tr:nth-child(odd) td:first-child {
   text-align: left;
 }
 
@@ -362,7 +366,7 @@ section.active {
   font-size: 18px;
 }
 .write-group__count input {
-  width: 10em;
+  width: 2em;
   line-height: 1;
   text-align: center;
 }
