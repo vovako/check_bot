@@ -18,9 +18,13 @@ const yearSelect = calendar.querySelector('.calendar-year')
 const monthSelect = calendar.querySelector('.calendar-month')
 
 updateLongDate(curDate)
-yearSelect.querySelector('.select-with-image__btn').replaceWith([...yearSelect.querySelector('.select-with-image__list').querySelectorAll('.select-with-image__btn')].filter(s => s.textContent === curYear)[0])
-monthSelect.querySelector('.select-with-image__btn').replaceWith(monthSelect.querySelector(`[data-month="${curMonth}"]`));
-[...calendar.querySelectorAll('.calendar__body tbody td')].filter(d => !d.classList.contains('extra') && d.textContent === curDay)[0].className = 'cur active'
+const yearOption = [...yearSelect.querySelector(`.select-with-image__list`).children].filter(y => y.textContent === curYear)[0]
+yearSelect.querySelector('.select-with-image__content').appendChild(yearOption.cloneNode(true));
+
+const monthOption = monthSelect.querySelector(`.select-with-image__list [data-month="${curMonth}"]`)
+monthSelect.querySelector('.select-with-image__content').appendChild(monthOption.cloneNode(true));
+
+[...calendar.querySelectorAll('.calendar__body tbody td')].filter(d => !d.classList.contains('extra') && d.textContent === curDay)[0].className = 'cur active';
 
 calendarBtn.addEventListener('click', function () {
 	calendar.classList.add('active')
@@ -196,11 +200,13 @@ allTabs.forEach(tabs => {
 //dropdown
 document.querySelectorAll('.select-with-image').forEach(dropdown => {
 	const ddSelect = dropdown.querySelector('.select-with-image__field')
+	const ddContent = ddSelect.querySelector('.select-with-image__content')
 	const list = dropdown.querySelector('.select-with-image__list')
 	const buttons = list.querySelectorAll('.select-with-image__btn')
 
-	ddSelect.querySelector('.select-with-image__btn')?.remove()
-	ddSelect.append(buttons[0]?.cloneNode(true) || '')
+	// ddSelect.querySelector('.select-with-image__btn')?.remove()
+	ddContent.firstChild ? '' : ddContent.append(buttons[0]?.cloneNode(true) || '')
+	
 
 	ddSelect.addEventListener('click', function () {
 		list.classList.toggle('active')
@@ -218,22 +224,11 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 	buttons.forEach(btn => {
 		btn.addEventListener('click', function () {
 			list.classList.remove('active')
-			ddSelect.querySelector('.select-with-image__btn')?.remove()
-			ddSelect.append(btn.cloneNode(true))
+			ddContent.innerHTML = ''
+			ddContent.append(btn.cloneNode(true))
 		})
 	})
 })
-
-
-
-
-
-function toPage(targetPage) {
-	document.querySelector('section.active').classList.remove('active')
-	document.querySelector(`[data-page="${targetPage}"]`).classList.add('active')
-}
-
-
 
 //apply-btn
 const applyBtn = document.querySelector('.write-group__save-btn')
@@ -267,4 +262,9 @@ applyBtn.addEventListener('click', function () {
 
 //change-btn
 
+
+function toPage(targetPage) {
+	document.querySelector('section.active').classList.remove('active')
+	document.querySelector(`[data-page="${targetPage}"]`).classList.add('active')
+}
 
