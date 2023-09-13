@@ -96,8 +96,6 @@ function updateCalendar(date) {
 	const oneEntriesCount = daysArray.filter(n => n === 1).length
 
 	for (let i = 1; i <= daysArray.length; i++) {
-		document.querySelector('.calendar').classList.add('active')
-
 		const classArray = ['extra']
 
 		if (isCurMonth) {
