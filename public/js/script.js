@@ -4,27 +4,29 @@
 const ORIGIN = 'http://192.168.100.71:3000'
 let CUR_GROUPS_DATA;
 const curDate = new Date().toISOString().split('T')[0]
+const calendarDateParts = [curDate.substring(0, 4), curDate.substring(5, 7), curDate.substring(8, 10)]//year, month, day
 
 //calendar
 const calendar = document.querySelector('.calendar')
 const calendarBtn = document.querySelector('.history__calendar-btn')
 const calendarApplyBtn = calendar.querySelector('.calendar__apply-btn')
 
-const curYear = curDate.substring(0, 4)
-const curMonth = curDate.substring(5, 7)
-const curDay = curDate.substring(8, 10)
+const curYear = calendarDateParts[0]
+const curMonth = calendarDateParts[1]
+const curDay = calendarDateParts[2]
 
 const yearSelect = calendar.querySelector('.calendar-year')
 const monthSelect = calendar.querySelector('.calendar-month')
 
 updateLongDate(curDate)
+updateCalendar(curDate)
 const yearOption = [...yearSelect.querySelector(`.select-with-image__list`).children].filter(y => y.textContent === curYear)[0]
 yearSelect.querySelector('.select-with-image__content').appendChild(yearOption.cloneNode(true));
 
 const monthOption = monthSelect.querySelector(`.select-with-image__list [data-month="${curMonth}"]`)
 monthSelect.querySelector('.select-with-image__content').appendChild(monthOption.cloneNode(true));
 
-[...calendar.querySelectorAll('.calendar__body tbody td')].filter(d => !d.classList.contains('extra') && d.textContent === curDay)[0].className = 'cur active';
+// [...calendar.querySelectorAll('.calendar__body tbody td')].filter(d => !d.classList.contains('extra') && d.textContent === curDay)[0].className = 'cur active';
 
 calendarBtn.addEventListener('click', function () {
 	calendar.classList.add('active')
@@ -36,12 +38,9 @@ calendar.addEventListener('click', function (evt) {
 	}
 })
 calendarApplyBtn.addEventListener('click', function () {
-	const selectedYear = yearSelect.querySelector('.select-with-image__field .select-with-image__btn').textContent
-	const selectedMonth = monthSelect.querySelector('.select-with-image__field .select-with-image__btn').dataset.month
-	let selectedDay = calendar.querySelector('.calendar__body tbody .active').textContent
-	selectedDay = selectedDay.length === 1 ? '0' + selectedDay : selectedDay
 
-	const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`
+	const selectedDate = `${calendarDateParts[0]}-${calendarDateParts[1]}-${calendarDateParts[2]}`
+	console.log(selectedDate);
 	updateLongDate(selectedDate)
 
 	fetch(`${ORIGIN}/api/groups/getgroups`, {
@@ -72,7 +71,61 @@ function closeCalendar() {
 	calendar.classList.remove('active')
 	document.body.style.overflow = null
 }
+function updateCalendar(date) {
+	const curYear = date.substring(0, 4)
+	const curMonth = date.substring(5, 7)
+	const curDay = curDate.substring(8, 10)//_fix_
 
+	const calendarBox = document.querySelector('.calendar table tbody')
+	calendarBox.innerHTML = ''
+
+	const daysCount = new Date(curYear, curMonth, 0).getDate()
+	const prevMonthDaysCount = new Date(curYear, curMonth - 1, 0).getDate()
+	const prevMonthVisibleDaysCount = new Date(curYear, curMonth - 1, 0).getDay()
+	let nextMonthVisibleDaysCount = new Date(curYear, curMonth, 1).getDay() - 1
+	nextMonthVisibleDaysCount = 7 - (nextMonthVisibleDaysCount < 0 ? 6 : nextMonthVisibleDaysCount)
+
+	const daysArray = Array.from({ length: daysCount }, ((v, i) => i + 1))
+	daysArray.splice(0, 0, ...Array.from({ length: prevMonthVisibleDaysCount }, (v, i) => prevMonthDaysCount - i).reverse())
+	daysArray.push(...Array.from({ length: nextMonthVisibleDaysCount }, (v, i) => i + 1))
+
+	const emptyRow = '<tr></tr>'
+	let row = emptyRow
+	let isCurMonth = daysArray[0] === 1
+
+	for (let i = 1; i <= daysArray.length; i++) {
+		document.querySelector('.calendar').classList.add('active')
+
+		const classArray = ['extra']
+
+		if (isCurMonth) {
+			classArray.pop()
+		} else if (daysArray[i] === 1) {
+			isCurMonth = true
+		}
+
+		if (i === daysArray.lastIndexOf(1)) {
+			isCurMonth = false
+		}
+
+		if (curDate === date) {
+			if (daysArray[i - 1] === +curDay ) {
+				classArray.push('cur')
+				classArray.push('active')
+			}
+		} else if (daysArray[i - 1] === 1 && isCurMonth) {
+			classArray.push('active')
+			calendarDateParts[2] = '01'
+		}
+
+		row += `<td ${classArray.length > 0 ? 'class="' + classArray.join(' ') + '"' : ''}>${daysArray[i - 1]}</td>`
+
+		if (i % 7 == 0) {
+			calendarBox.insertAdjacentHTML('beforeend', `${row}`)
+			row = emptyRow
+		}
+	}
+}
 
 //get groups
 fetch(`${ORIGIN}/api/groups/getgroups`, {
@@ -163,8 +216,18 @@ document.addEventListener('click', function (evt) {
 		const allSelect = document.querySelectorAll('.select-with-image__list')
 		Array.from(allSelect).map(e => e.classList.remove('active'))
 	} else if (target.tagName === 'TD' && target.closest('.calendar') && !target.classList.contains('extra')) {
-		target.closest('.calendar').querySelector('td.active').classList.remove('active')
+		target.closest('.calendar').querySelector('td.active')?.classList.remove('active')
 		target.classList.add('active')
+
+		const selectedDay = document.querySelector('.calendar__body tbody .active').textContent
+		calendarDateParts[2] = selectedDay.length === 1 ? '0' + selectedDay : selectedDay
+
+	} else if (target.classList.contains('select-with-image__btn') && target.closest('.calendar-month .select-with-image__list')) {
+		calendarDateParts[1] = monthSelect.querySelector('.select-with-image__field .select-with-image__btn').dataset.month
+		updateCalendar(calendarDateParts.join('-'))
+	} else if (target.classList.contains('select-with-image__btn') && target.closest('.calendar-year .select-with-image__list')) {
+		calendarDateParts[0] = yearSelect.querySelector('.select-with-image__field .select-with-image__btn').textContent
+		updateCalendar(calendarDateParts.join('-'))
 	}
 })
 
