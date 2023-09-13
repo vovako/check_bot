@@ -2,7 +2,7 @@
 
 //on load
 const ORIGIN = 'http://192.168.100.71:3000'
-let GROUPS_DATA;
+let CUR_GROUPS_DATA;
 const curDate = new Date().toISOString().split('T')[0]
 
 //calendar
@@ -43,6 +43,24 @@ calendarApplyBtn.addEventListener('click', function () {
 
 	const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`
 	updateLongDate(selectedDate)
+
+	fetch(`${ORIGIN}/api/groups/getgroups`, {
+		method: 'post',
+		body: JSON.stringify({
+			"date": selectedDate
+		}),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}).then(res => res.json())
+		.then(json => {
+
+			if (json.code === 200) {
+				updateHistoryTable(json.data)
+			}
+		})
+		.catch(err => console.log(err))
+
 	closeCalendar()
 })
 
@@ -54,6 +72,7 @@ function closeCalendar() {
 	calendar.classList.remove('active')
 	document.body.style.overflow = null
 }
+
 
 //get groups
 fetch(`${ORIGIN}/api/groups/getgroups`, {
@@ -69,11 +88,10 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 		console.log(json);
 
 		if (json.code === 200) {
-			GROUPS_DATA = json.data
+			CUR_GROUPS_DATA = json.data
 			const writePage = document.querySelector('.write')
-			const historyPage = document.querySelector('.history')
 
-			GROUPS_DATA.forEach(group => {
+			CUR_GROUPS_DATA.forEach(group => {
 				const omissions = group.records.slice(-1)[0]?.absent ?? 0
 				const cameCount = group.participants - +omissions
 
@@ -88,34 +106,9 @@ fetch(`${ORIGIN}/api/groups/getgroups`, {
 					</div>
 				</div>
 				`)
-
-				const historyBox = historyPage.querySelector(`.groups__course[data-course="${course}"]`)
-				const curatorParts = group.teacher.split(' ')
-				const curatorName = `${curatorParts[0]} ${curatorParts[1][0]} ${curatorParts[2][0]}`;
-
-				const recordsCount = group.records.length
-				let additRows = ''
-				for (let i = 1; i < recordsCount; i++) {
-					additRows += `
-					<tr>
-						<td>${group.records[i]?.time.slice(0, -3) ?? '-'}</td>
-						<td>${group.records[i]?.absent ?? '-'}</td>
-					</tr>
-					`
-				}
-				historyBox.insertAdjacentHTML('beforeend', `
-				<tr>
-					<td rowspan="${Math.max(recordsCount, 1)}" style="text-align: left;">
-						<span class="group">${group.id_group}</span> <br>
-						<span class="curator">${curatorName}</span>
-					</td>
-					<td rowspan="${Math.max(recordsCount, 1)}">${group.participants}</td>
-					<td>${group.records[0]?.time.slice(0, -3) ?? '-'}</td>
-					<td>${group.records[0]?.absent ?? '-'}</td>
-				</tr>
-				${additRows}
-				`)
 			});
+
+			updateHistoryTable(CUR_GROUPS_DATA)
 		}
 	})
 	.catch(err => console.log(err))
@@ -136,7 +129,7 @@ document.addEventListener('click', function (evt) {
 			groupCrumb.textContent = group
 
 			const writeGroupConut = document.querySelector('.write-group__count')
-			const groupData = GROUPS_DATA.filter(g => g.id_group === group)[0]
+			const groupData = CUR_GROUPS_DATA.filter(g => g.id_group === group)[0]
 			const cameCount = target.querySelector('.groups-item__count .cur').textContent
 
 			writeGroupConut.outerHTML = `
@@ -206,7 +199,7 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 
 	// ddSelect.querySelector('.select-with-image__btn')?.remove()
 	ddContent.firstChild ? '' : ddContent.append(buttons[0]?.cloneNode(true) || '')
-	
+
 
 	ddSelect.addEventListener('click', function () {
 		list.classList.toggle('active')
@@ -231,10 +224,10 @@ document.querySelectorAll('.select-with-image').forEach(dropdown => {
 })
 
 //apply-btn
-const applyBtn = document.querySelector('.write-group__save-btn')
-applyBtn.addEventListener('click', function () {
+const writeApplyBtn = document.querySelector('.write-group__save-btn')
+writeApplyBtn.addEventListener('click', function () {
 
-	const section = applyBtn.closest('section')
+	const section = writeApplyBtn.closest('section')
 	const groupId = [...section.querySelector('.breadcrumbs').children].slice(-1)[0].textContent
 	const cameCount = +section.querySelector('.write-group__count .cur input').value
 	const allStudentsCount = +section.querySelector('.write-group__count .all').textContent
@@ -266,5 +259,45 @@ applyBtn.addEventListener('click', function () {
 function toPage(targetPage) {
 	document.querySelector('section.active').classList.remove('active')
 	document.querySelector(`[data-page="${targetPage}"]`).classList.add('active')
+}
+
+function updateHistoryTable(data) {
+	const historyPage = document.querySelector('.history')
+
+	const allCourses = historyPage.querySelectorAll('.groups__course')
+	allCourses.forEach(course => {
+		course.innerHTML = ''
+	})
+
+	data.forEach(group => {
+		const course = group.id_group[0]
+		const historyBox = historyPage.querySelector(`.groups__course[data-course="${course}"]`)
+
+		const curatorParts = group.teacher.split(' ')
+		const curatorName = `${curatorParts[0]} ${curatorParts[1][0]} ${curatorParts[2][0]}`;
+
+		const recordsCount = group.records.length
+		let additRows = ''
+		for (let i = 1; i < recordsCount; i++) {
+			additRows += `
+				<tr>
+					<td>${group.records[i]?.time.slice(0, -3) ?? '-'}</td>
+					<td>${group.records[i]?.absent ?? '-'}</td>
+				</tr>
+				`
+		}
+		historyBox.insertAdjacentHTML('beforeend', `
+			<tr>
+				<td rowspan="${Math.max(recordsCount, 1)}" style="text-align: left;">
+					<span class="group">${group.id_group}</span> <br>
+					<span class="curator">${curatorName}</span>
+				</td>
+				<td rowspan="${Math.max(recordsCount, 1)}">${group.participants}</td>
+				<td>${group.records[0]?.time.slice(0, -3) ?? '-'}</td>
+				<td>${group.records[0]?.absent ?? '-'}</td>
+			</tr>
+			${additRows}
+			`)
+	})
 }
 
