@@ -40,7 +40,6 @@ calendar.addEventListener('click', function (evt) {
 calendarApplyBtn.addEventListener('click', function () {
 
 	const selectedDate = `${calendarDateParts[0]}-${calendarDateParts[1]}-${calendarDateParts[2]}`
-	console.log(selectedDate);
 	updateLongDate(selectedDate)
 
 	fetch(`${ORIGIN}/api/groups/getgroups`, {
@@ -74,7 +73,7 @@ function closeCalendar() {
 function updateCalendar(date) {
 	const curYear = date.substring(0, 4)
 	const curMonth = date.substring(5, 7)
-	const curDay = curDate.substring(8, 10)//_fix_
+	const curDay = curDate.substring(8, 10)
 
 	const calendarBox = document.querySelector('.calendar table tbody')
 	calendarBox.innerHTML = ''
@@ -84,6 +83,8 @@ function updateCalendar(date) {
 	const prevMonthVisibleDaysCount = new Date(curYear, curMonth - 1, 0).getDay()
 	let nextMonthVisibleDaysCount = new Date(curYear, curMonth, 1).getDay() - 1
 	nextMonthVisibleDaysCount = 7 - (nextMonthVisibleDaysCount < 0 ? 6 : nextMonthVisibleDaysCount)
+	if (nextMonthVisibleDaysCount === 7) nextMonthVisibleDaysCount = 0
+
 
 	const daysArray = Array.from({ length: daysCount }, ((v, i) => i + 1))
 	daysArray.splice(0, 0, ...Array.from({ length: prevMonthVisibleDaysCount }, (v, i) => prevMonthDaysCount - i).reverse())
@@ -92,6 +93,7 @@ function updateCalendar(date) {
 	const emptyRow = '<tr></tr>'
 	let row = emptyRow
 	let isCurMonth = daysArray[0] === 1
+	const oneEntriesCount = daysArray.filter(n => n === 1).length
 
 	for (let i = 1; i <= daysArray.length; i++) {
 		document.querySelector('.calendar').classList.add('active')
@@ -104,7 +106,7 @@ function updateCalendar(date) {
 			isCurMonth = true
 		}
 
-		if (i === daysArray.lastIndexOf(1)) {
+		if (i === daysArray.lastIndexOf(1) && oneEntriesCount > 1) {
 			isCurMonth = false
 		}
 
