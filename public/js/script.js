@@ -1,7 +1,7 @@
 
 
 //on load
-const ORIGIN = 'http://192.168.100.71:3000'
+const ORIGIN = 'https://check-zmark.p.tnnl.in//'
 let CUR_GROUPS_DATA;
 const curDate = new Date().toISOString().split('T')[0]
 const calendarDateParts = [curDate.substring(0, 4), curDate.substring(5, 7), curDate.substring(8, 10)]//year, month, day

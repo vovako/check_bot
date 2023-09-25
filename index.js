@@ -1,4 +1,4 @@
-import express, { application } from 'express'
+import express from 'express'
 import { setApi } from './backend/route.js'
 import cors from 'cors'
 import axios from 'axios'
@@ -44,6 +44,7 @@ const getGroups = (ctx, ischange, ismarking) => {
         })
         .catch(err => {
             ctx.editMessageText("❌ Ошибка при загрузке данных о группах")
+                .then(()=>ctx.scene.leave())
                 .catch(err => console.log(err))
         })
 }
@@ -66,7 +67,9 @@ const getGroup = (ctx, ismarking) => {
             }
         })
         .catch(err => {
+            console.log(err)
             ctx.editMessageText("❌ Ошибка при загрузке данных о студентах")
+                .then(()=>ctx.scene.leave())
                 .catch(err => console.log(err))
         })
 }
@@ -94,6 +97,7 @@ const getBotsToChange=(ctx)=>{
             })
             .catch(err => {
                 ctx.editMessageText("❌ Ошибка при загрузке данных о группах")
+                    .then(()=>ctx.scene.leave())
                     .catch(err => console.log(err))
             })
 }
@@ -172,7 +176,9 @@ changeScene.action(/^group:([1-4])[А-Яа-я]+([1-4])$/,ctx=>{
                 .catch(err => console.log("❌ Попробуйте повторить попытку"))
         })
         .catch(err => {
+            console.log(err)
             ctx.editMessageText("❌ Ошибка при загрузке данных о студентах")
+                .then(()=>ctx.scene.leave())
                 .catch(err => console.log(err))
         })
 })
